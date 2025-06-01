@@ -7,10 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configurar el puerto para Heroku
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(int.Parse(port));
-});
+builder.WebHost.UseUrls($"http://*:{port}");
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
