@@ -1,1 +1,1 @@
-web: dotnet MovimientoGastos.dll --server.urls http://+:$PORT 
+web: dotnet ./MovimientoGastos.dll --urls http://+:$PORT 
