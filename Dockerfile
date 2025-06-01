@@ -1,18 +1,18 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["MovimientoGastos.csproj", "./"]
-RUN dotnet restore "MovimientoGastos.csproj"
+RUN dotnet restore
 COPY . .
-RUN dotnet build "MovimientoGastos.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "MovimientoGastos.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+
+EXPOSE $PORT
+ENV ASPNETCORE_URLS=http://+:$PORT
+
 ENTRYPOINT ["dotnet", "MovimientoGastos.dll"] 
