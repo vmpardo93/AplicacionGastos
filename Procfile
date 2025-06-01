@@ -1,1 +1,1 @@
-web: cd $HOME/heroku_output && dotnet MovimientoGastos.dll --server.urls http://+:$PORT 
+web: dotnet MovimientoGastos.dll --server.urls http://+:$PORT 
