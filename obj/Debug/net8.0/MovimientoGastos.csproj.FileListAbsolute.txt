@@ -150,3 +150,17 @@ C:\Users\Victor\source\repos\MovimientoGastos\obj\Debug\net8.0\refint\Movimiento
 C:\Users\Victor\source\repos\MovimientoGastos\obj\Debug\net8.0\MovimientoGastos.pdb
 C:\Users\Victor\source\repos\MovimientoGastos\obj\Debug\net8.0\MovimientoGastos.genruntimeconfig.cache
 C:\Users\Victor\source\repos\MovimientoGastos\obj\Debug\net8.0\ref\MovimientoGastos.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\appsettings.Production.json
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\global.json
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\project.json
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\Npgsql.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\System.Text.Json.dll
+C:\Users\Victor\source\repos\MovimientoGastos\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\Victor\source\repos\MovimientoGastos\obj\Debug\net8.0\MovimientoGastos.sourcelink.json
