@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Control de Gastos</h3>
+                </div>
+                <div class="card-body">
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+                        
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="usuario" />
+                            <label asp-for="Input.UserName">Nombre de Usuario</label>
+                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" type="password" />
+                            <label asp-for="Input.Password">Contraseña</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input asp-for="Input.RememberMe" type="checkbox" /> Recordarme
+                            </label>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button id="login-submit" type="submit" class="btn btn-lg btn-primary">Iniciar Sesión</button>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <p>
+                                <a asp-page="./Register">Registrarse</a>
+                            </p>
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

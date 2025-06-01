@@ -1,0 +1,58 @@
+@page
+@model MovimientoGastos.Pages.Mantenimientos.TiposGasto.CreateModel
+@{
+    ViewData["Title"] = "Nuevo Tipo de Gasto";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Nuevo Tipo de Gasto</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-page="/Dashboard/Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-page="./Index">Tipos de Gasto</a></li>
+        <li class="breadcrumb-item active">Nuevo</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-plus me-1"></i>
+            Crear Tipo de Gasto
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+            }
+
+            <form method="post">
+                <input type="hidden" asp-for="TipoGasto.Codigo" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="TipoGasto.Nombre" class="control-label"></label>
+                    <input asp-for="TipoGasto.Nombre" class="form-control" />
+                    <span asp-validation-for="TipoGasto.Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="TipoGasto.Descripcion" class="control-label"></label>
+                    <textarea asp-for="TipoGasto.Descripcion" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="TipoGasto.Descripcion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

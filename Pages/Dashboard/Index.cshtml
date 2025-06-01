@@ -1,0 +1,100 @@
+@page "/Dashboard"
+@model MovimientoGastos.Pages.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Panel de Control</li>
+    </ol>
+    
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <h4>Gastos del Mes</h4>
+                    <h3>@Model.TotalGastosDelMes.ToString("C")</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <h4>Depósitos del Mes</h4>
+                    <h3>@Model.TotalDepositosDelMes.ToString("C")</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <h4>Presupuestos</h4>
+                    <h3>@Model.TotalPresupuestos</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-body">
+                    <h4>Balance</h4>
+                    <h3 class="@(Model.Balance >= 0 ? "text-white" : "text-danger")">
+                        @Model.Balance.ToString("C")
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-tachometer-alt me-1"></i>
+                    Accesos Rápidos
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a href="/Movimientos/Gastos/Create" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-plus"></i> Nuevo Gasto
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="/Movimientos/Depositos/Create" class="btn btn-outline-success w-100">
+                                <i class="fas fa-plus"></i> Nuevo Depósito
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="/Mantenimiento/Presupuestos/Create" class="btn btn-outline-info w-100">
+                                <i class="fas fa-plus"></i> Nuevo Presupuesto
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="/Mantenimientos/TiposGasto/Create" class="btn btn-outline-warning w-100">
+                                <i class="fas fa-plus"></i> Nuevo Tipo Gasto
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6 mb-2">
+                            <a href="/Consultas/Movimientos" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-list"></i> Consultar Movimientos
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a href="/Consultas/Graficos" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-chart-bar"></i> Ver Gráficos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Aquí irán los scripts para los gráficos -->
+} 

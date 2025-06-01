@@ -1,0 +1,155 @@
+@page
+@model MovimientoGastos.Pages.Consultas.MovimientosModel
+
+@{
+    ViewData["Title"] = "Consulta de Movimientos";
+}
+
+<div class="container-fluid">
+    <h1>Consulta de Movimientos</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="get" class="mb-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="FechaInicio" class="control-label">Fecha Inicio</label>
+                            <input asp-for="FechaInicio" class="form-control" type="date" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="FechaFin" class="control-label">Fecha Fin</label>
+                            <input asp-for="FechaFin" class="form-control" type="date" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="FondoId" class="control-label">Fondo</label>
+                            <select asp-for="FondoId" class="form-select" asp-items="@(new SelectList(Model.Fondos, "Id", "Nombre"))">
+                                <option value="">Todos los fondos</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <h4>Gastos</h4>
+            <div class="table-responsive mb-4">
+                @if (Model.Gastos.Any())
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Comercio</th>
+                                <th>Fondo</th>
+                                <th>Monto Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var gasto in Model.Gastos)
+                            {
+                                <tr class="table-danger">
+                                    <td>@gasto.Fecha.ToShortDateString()</td>
+                                    <td>@(gasto.Comercio ?? "N/A")</td>
+                                    <td>@(gasto.FondoMonetario?.Nombre ?? "N/A")</td>
+                                    <td class="text-danger">@gasto.Total.ToString("C2")</td>
+                                    <td>
+                                        <a asp-page="/Movimientos/Gastos/Details" asp-route-id="@gasto.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info-circle"></i> Detalles
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Total Gastos:</strong></td>
+                                <td class="text-danger"><strong>@Model.TotalGastos.ToString("C2")</strong></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> No se encontraron gastos en el período seleccionado.
+                    </div>
+                }
+            </div>
+
+            <h4>Depósitos</h4>
+            <div class="table-responsive">
+                @if (Model.Depositos.Any())
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Fondo</th>
+                                <th>Monto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var deposito in Model.Depositos)
+                            {
+                                <tr class="table-success">
+                                    <td>@deposito.Fecha.ToShortDateString()</td>
+                                    <td>@(deposito.FondoMonetario?.Nombre ?? "N/A")</td>
+                                    <td class="text-success">@deposito.Monto.ToString("C2")</td>
+                                    <td>
+                                        <a asp-page="/Movimientos/Depositos/Details" asp-route-id="@deposito.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info-circle"></i> Detalles
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-end"><strong>Total Depósitos:</strong></td>
+                                <td class="text-success"><strong>@Model.TotalDepositos.ToString("C2")</strong></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> No se encontraron depósitos en el período seleccionado.
+                    </div>
+                }
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5>Balance General</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Total Gastos: <strong class="text-danger">@Model.TotalGastos.ToString("C2")</strong></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>Total Depósitos: <strong class="text-success">@Model.TotalDepositos.ToString("C2")</strong></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>Balance: <strong class="@(Model.Balance >= 0 ? "text-success" : "text-danger")">@Model.Balance.ToString("C2")</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,159 @@
+@page
+@model MovimientoGastos.Pages.Consultas.GraficosModel
+
+@{
+    ViewData["Title"] = "Gráficos Comparativos";
+}
+
+<div class="container-fluid">
+    <h1>Gráficos Comparativos</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="get" class="mb-4">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label asp-for="FechaInicio" class="control-label">Fecha Inicio</label>
+                            <input asp-for="FechaInicio" class="form-control" type="date" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label asp-for="FechaFin" class="control-label">Fecha Fin</label>
+                            <input asp-for="FechaFin" class="form-control" type="date" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            @if (Model.TiposGasto != null && Model.TiposGasto.Any() && !Model.TiposGasto.Contains("Sin datos"))
+            {
+                <div class="chart-container" style="position: relative; height:60vh; width:100%">
+                    <canvas id="presupuestoGastosChart"></canvas>
+                </div>
+
+                <!-- Tabla de resumen -->
+                <div class="mt-4">
+                    <h5>Resumen de Datos</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Gasto</th>
+                                    <th class="text-end">Presupuestado</th>
+                                    <th class="text-end">Ejecutado</th>
+                                    <th class="text-end">Diferencia</th>
+                                    <th class="text-end">% Ejecución</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.TiposGasto.Count; i++)
+                                {
+                                    var diferencia = Model.MontosPresupuestados[i] - Model.MontosEjecutados[i];
+                                    var porcentaje = Model.MontosPresupuestados[i] > 0 ? 
+                                        (Model.MontosEjecutados[i] / Model.MontosPresupuestados[i] * 100) : 0;
+                                    var claseColor = diferencia >= 0 ? "text-success" : "text-danger";
+                                    
+                                    <tr>
+                                        <td>@Model.TiposGasto[i]</td>
+                                        <td class="text-end">@Model.MontosPresupuestados[i].ToString("C2")</td>
+                                        <td class="text-end">@Model.MontosEjecutados[i].ToString("C2")</td>
+                                        <td class="text-end @claseColor">@diferencia.ToString("C2")</td>
+                                        <td class="text-end">@porcentaje.ToString("F1")%</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> 
+                    No se encontraron datos de presupuestos o gastos para el período seleccionado. 
+                    Asegúrate de haber creado presupuestos y registrado gastos para poder visualizar las comparativas.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if (Model.TiposGasto != null && Model.TiposGasto.Any() && !Model.TiposGasto.Contains("Sin datos"))
+            {
+                <text>
+                const ctx = document.getElementById('presupuestoGastosChart').getContext('2d');
+                
+                const data = {
+                    labels: @Html.Raw(Json.Serialize(Model.TiposGasto)),
+                    datasets: [
+                        {
+                            label: 'Presupuestado',
+                            data: @Html.Raw(Json.Serialize(Model.MontosPresupuestados)),
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Ejecutado',
+                            data: @Html.Raw(Json.Serialize(Model.MontosEjecutados)),
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                };
+
+                const config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$ ' + value.toLocaleString();
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Comparativo de Presupuestos vs Gastos Ejecutados'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += '$ ' + context.parsed.y.toLocaleString();
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+
+                new Chart(ctx, config);
+                </text>
+            }
+        });
+    </script>
+} 

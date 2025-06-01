@@ -1,0 +1,78 @@
+@page "{id:int}"
+@model MovimientoGastos.Pages.Movimientos.Gastos.DetailsModel
+@{
+    ViewData["Title"] = "Detalles del Gasto";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Detalles del Gasto</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-page="/Dashboard/Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-page="./Index">Gastos</a></li>
+        <li class="breadcrumb-item active">Detalles</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-eye me-1"></i>
+            Información del Gasto
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gasto.Fecha)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Gasto.Fecha)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gasto.Comercio)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Gasto.Comercio)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gasto.TipoDoc)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Gasto.TipoDoc)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gasto.NumeroDoc)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Gasto.NumeroDoc)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gasto.FondoMonetario)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Gasto.FondoMonetario.Nombre)</dd>
+
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gasto.Observaciones)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Gasto.Observaciones)</dd>
+            </dl>
+
+            <h4 class="mt-4">Detalles del Gasto</h4>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tipo de Gasto</th>
+                        <th>Descripción</th>
+                        <th class="text-end">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detalle in Model.Gasto.Detalles)
+                    {
+                        <tr>
+                            <td>@detalle.TipoGasto.Nombre</td>
+                            <td>@detalle.Descripcion</td>
+                            <td class="text-end">@detalle.Monto.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-end">Total:</th>
+                        <th class="text-end">@Model.Gasto.Total.ToString("C")</th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="mt-3">
+                <a asp-page="./Edit" asp-route-id="@Model.Gasto.Id" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Editar
+                </a>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+            </div>
+        </div>
+    </div>
+</div> 

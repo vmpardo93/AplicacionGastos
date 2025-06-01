@@ -1,0 +1,47 @@
+@page
+@model MovimientoGastos.Pages.Mantenimiento.Presupuestos.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Presupuesto";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Eliminar Presupuesto</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-page="/Index">Inicio</a></li>
+        <li class="breadcrumb-item"><a asp-page="./Index">Presupuestos</a></li>
+        <li class="breadcrumb-item active">Eliminar</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-trash me-1"></i>
+            Eliminar Presupuesto
+        </div>
+        <div class="card-body">
+            <div class="alert alert-danger" role="alert">
+                ¿Está seguro de que desea eliminar este presupuesto?
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-2">Tipo de Gasto</dt>
+                <dd class="col-sm-10">@Model.PresupuestoVM?.TipoGastoNombre</dd>
+
+                <dt class="col-sm-2">Mes</dt>
+                <dd class="col-sm-10">@Model.PresupuestoVM?.NombreMes</dd>
+
+                <dt class="col-sm-2">Monto</dt>
+                <dd class="col-sm-10">@Model.PresupuestoVM?.Monto.ToString("C")</dd>
+            </dl>
+
+            <form method="post">
+                <input type="hidden" asp-for="PresupuestoVM.Id" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash me-1"></i> Eliminar
+                </button>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    <i class="fas fa-times me-1"></i> Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div> 

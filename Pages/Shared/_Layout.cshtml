@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Control de Gastos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <!-- Menú Lateral -->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading border-bottom bg-primary text-white">Control de Gastos</div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Dashboard/Index">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    
+                    <!-- Mantenimientos -->
+                    <div class="sidebar-heading border-bottom p-2 text-muted small text-uppercase">Mantenimientos</div>
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Mantenimientos/TiposGasto/Index">
+                        <i class="fas fa-tags me-2"></i>Tipos de Gasto
+                    </a>
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Mantenimiento/Presupuestos/Index">
+                        <i class="fas fa-money-bill-wave me-2"></i>Presupuestos
+                    </a>
+
+                    <!-- Movimientos -->
+                    <div class="sidebar-heading border-bottom p-2 text-muted small text-uppercase">Movimientos</div>
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Movimientos/Gastos/Index">
+                        <i class="fas fa-receipt me-2"></i>Registro de Gastos
+                    </a>
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Movimientos/Depositos/Index">
+                        <i class="fas fa-piggy-bank me-2"></i>Depósitos
+                    </a>
+
+                    <!-- Consultas y Reportes -->
+                    <div class="sidebar-heading border-bottom p-2 text-muted small text-uppercase">Consultas y Reportes</div>
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Consultas/Movimientos">
+                        <i class="fas fa-search-dollar me-2"></i>Consulta de Movimientos
+                    </a>
+                    <a class="list-group-item list-group-item-action p-3" asp-page="/Consultas/Graficos">
+                        <i class="fas fa-chart-pie me-2"></i>Gráficos Comparativos
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contenido de la Página -->
+            <div id="page-content-wrapper">
+                <!-- Navbar Superior -->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="ms-auto">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" 
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-page="/Account/Manage/Index">Mi Cuenta</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li>
+                                            <form class="form-inline" asp-page="/Account/Logout" method="post">
+                                                <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Contenido Principal -->
+                <div class="container-fluid p-4">
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="page-content-wrapper" class="w-100">
+                @RenderBody()
+            </div>
+        }
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            // Toggle del menú lateral
+            window.addEventListener('DOMContentLoaded', event => {
+                const sidebarToggle = document.body.querySelector('#sidebarToggle');
+                if (sidebarToggle) {
+                    sidebarToggle.addEventListener('click', event => {
+                        event.preventDefault();
+                        document.body.classList.toggle('sb-sidenav-toggled');
+                        localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                    });
+                }
+            });
+        </script>
+    }
+</body>
+</html>

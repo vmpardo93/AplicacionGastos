@@ -1,0 +1,233 @@
+@page
+@model MovimientoGastos.Pages.Movimientos.Gastos.CreateModel
+@{
+    ViewData["Title"] = "Nuevo Gasto";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Nuevo Gasto</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-page="/Dashboard/Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-page="./Index">Gastos</a></li>
+        <li class="breadcrumb-item active">Nuevo Gasto</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-plus me-1"></i>
+            Registrar Nuevo Gasto
+        </div>
+        <div class="card-body">
+            <form method="post" id="gastoForm">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="GastoVM.Fecha" class="control-label"></label>
+                            <input asp-for="GastoVM.Fecha" class="form-control" type="date" />
+                            <span asp-validation-for="GastoVM.Fecha" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="GastoVM.FondoMonetarioId" class="control-label"></label>
+                            <select asp-for="GastoVM.FondoMonetarioId" class="form-select" asp-items="@(new SelectList(Model.FondosLista, "Id", "Nombre"))">
+                                <option value="">Seleccione un fondo</option>
+                            </select>
+                            <span asp-validation-for="GastoVM.FondoMonetarioId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="GastoVM.Comercio" class="control-label"></label>
+                            <input asp-for="GastoVM.Comercio" class="form-control" />
+                            <span asp-validation-for="GastoVM.Comercio" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="GastoVM.TipoDoc" class="control-label"></label>
+                            <select asp-for="GastoVM.TipoDoc" class="form-select">
+                                <option value="">Seleccione un tipo...</option>
+                                <option value="Factura">Factura</option>
+                                <option value="Ticket">Ticket</option>
+                                <option value="Recibo">Recibo</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <span asp-validation-for="GastoVM.TipoDoc" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="GastoVM.NumeroDoc" class="control-label"></label>
+                            <input asp-for="GastoVM.NumeroDoc" class="form-control" />
+                            <span asp-validation-for="GastoVM.NumeroDoc" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="GastoVM.Observaciones" class="control-label"></label>
+                    <textarea asp-for="GastoVM.Observaciones" class="form-control"></textarea>
+                    <span asp-validation-for="GastoVM.Observaciones" class="text-danger"></span>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>Detalles del Gasto</div>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="agregarDetalle()">
+                                <i class="fas fa-plus"></i> Agregar Detalle
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="detallesContainer">
+                            <!-- Los detalles se agregarán aquí dinámicamente -->
+                        </div>
+                        <div id="totalContainer" class="text-end mt-3">
+                            <h4>Total: <span id="totalMonto">0.00</span></h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        let detalleIndex = 0;
+
+        function agregarDetalle() {
+            const container = document.getElementById('detallesContainer');
+            const detalle = document.createElement('div');
+            detalle.className = 'row mb-3 detalle-row';
+            detalle.innerHTML = `
+                <input type="hidden" name="GastoVM.Detalles[${detalleIndex}].Id" value="0" />
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Gasto</label>
+                        <select name="GastoVM.Detalles[${detalleIndex}].TipoGastoId" class="form-select tipo-gasto-select" required onchange="actualizarTotal()">
+                            <option value="">Seleccione un tipo...</option>
+                            @foreach (var tipo in Model.TiposGastoLista)
+                            {
+                                <option value="@tipo.Id">@tipo.Nombre</option>
+                            }
+                        </select>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="GastoVM.Detalles[${detalleIndex}].TipoGastoId" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label">Monto</label>
+                        <input type="number" name="GastoVM.Detalles[${detalleIndex}].Monto" class="form-control monto-input" required step="0.01" min="0.01" onchange="actualizarTotal()" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="GastoVM.Detalles[${detalleIndex}].Monto" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="control-label">&nbsp;</label>
+                        <button type="button" class="btn btn-danger form-control" onclick="eliminarDetalle(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(detalle);
+            detalleIndex++;
+            actualizarTotal();
+            $.validator.unobtrusive.parse($(detalle));
+        }
+
+        function eliminarDetalle(button) {
+            button.closest('.detalle-row').remove();
+            actualizarTotal();
+            reindexarDetalles();
+        }
+
+        function reindexarDetalles() {
+            const detalles = document.getElementsByClassName('detalle-row');
+            for (let i = 0; i < detalles.length; i++) {
+                const detalle = detalles[i];
+                const idInput = detalle.querySelector('input[name^="GastoVM.Detalles"][name$="].Id"]');
+                const tipoGasto = detalle.querySelector('select[name^="GastoVM.Detalles"]');
+                const monto = detalle.querySelector('input[name^="GastoVM.Detalles"][name$="].Monto"]');
+                const tipoGastoSpan = detalle.querySelector('span[data-valmsg-for^="GastoVM.Detalles"]');
+                const montoSpan = detalle.querySelector('span[data-valmsg-for^="GastoVM.Detalles"][data-valmsg-for$="].Monto"]');
+                
+                idInput.name = `GastoVM.Detalles[${i}].Id`;
+                tipoGasto.name = `GastoVM.Detalles[${i}].TipoGastoId`;
+                monto.name = `GastoVM.Detalles[${i}].Monto`;
+                tipoGastoSpan.setAttribute('data-valmsg-for', `GastoVM.Detalles[${i}].TipoGastoId`);
+                montoSpan.setAttribute('data-valmsg-for', `GastoVM.Detalles[${i}].Monto`);
+            }
+            detalleIndex = detalles.length;
+        }
+
+        function actualizarTotal() {
+            const montos = document.querySelectorAll('.monto-input');
+            let total = 0;
+            montos.forEach(input => {
+                const valor = parseFloat(input.value) || 0;
+                total += valor;
+            });
+            document.getElementById('totalMonto').textContent = total.toFixed(2);
+        }
+
+        // Agregar el primer detalle al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            agregarDetalle();
+        });
+
+        // Validar que haya al menos un detalle antes de enviar el formulario
+        document.getElementById('gastoForm').addEventListener('submit', function(e) {
+            const detalles = document.getElementsByClassName('detalle-row');
+            if (detalles.length === 0) {
+                e.preventDefault();
+                alert('Debe agregar al menos un detalle al gasto.');
+                return;
+            }
+
+            // Validar que todos los campos requeridos estén completos
+            let formValido = true;
+            let mensajesError = [];
+
+            for (let i = 0; i < detalles.length; i++) {
+                const detalle = detalles[i];
+                const tipoGasto = detalle.querySelector('select[name^="GastoVM.Detalles"]');
+                const monto = detalle.querySelector('input[name^="GastoVM.Detalles"][name$="].Monto"]');
+
+                if (!tipoGasto.value) {
+                    formValido = false;
+                    mensajesError.push(`Detalle ${i + 1}: Debe seleccionar un tipo de gasto`);
+                }
+
+                if (!monto.value || parseFloat(monto.value) <= 0) {
+                    formValido = false;
+                    mensajesError.push(`Detalle ${i + 1}: El monto debe ser mayor que 0`);
+                }
+            }
+
+            if (!formValido) {
+                e.preventDefault();
+                alert('Por favor corrija los siguientes errores:\n\n' + mensajesError.join('\n'));
+            }
+        });
+    </script>
+} 

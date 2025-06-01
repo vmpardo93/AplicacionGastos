@@ -1,0 +1,195 @@
+@page "{id:int}"
+@model MovimientoGastos.Pages.Movimientos.Gastos.EditModel
+@{
+    ViewData["Title"] = "Editar Gasto";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Editar Gasto</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-page="/Dashboard/Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-page="./Index">Gastos</a></li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-edit me-1"></i>
+            Modificar Gasto
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Gasto.Id" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Gasto.Fecha" class="control-label"></label>
+                            <input asp-for="Gasto.Fecha" class="form-control" />
+                            <span asp-validation-for="Gasto.Fecha" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Gasto.Comercio" class="control-label"></label>
+                            <input asp-for="Gasto.Comercio" class="form-control" />
+                            <span asp-validation-for="Gasto.Comercio" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Gasto.TipoDoc" class="control-label"></label>
+                            <input asp-for="Gasto.TipoDoc" class="form-control" />
+                            <span asp-validation-for="Gasto.TipoDoc" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Gasto.NumeroDoc" class="control-label"></label>
+                            <input asp-for="Gasto.NumeroDoc" class="form-control" />
+                            <span asp-validation-for="Gasto.NumeroDoc" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Gasto.FondoMonetarioId" class="control-label">Fondo</label>
+                            <select asp-for="Gasto.FondoMonetarioId" class="form-select" asp-items="@(new SelectList(Model.FondosLista, "Id", "Nombre"))">
+                                <option value="">Seleccione un fondo</option>
+                            </select>
+                            <span asp-validation-for="Gasto.FondoMonetarioId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Gasto.Observaciones" class="control-label"></label>
+                            <textarea asp-for="Gasto.Observaciones" class="form-control"></textarea>
+                            <span asp-validation-for="Gasto.Observaciones" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-list me-1"></i>
+                                Detalles del Gasto
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="agregarDetalle()">
+                                <i class="fas fa-plus"></i> Agregar Detalle
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="detalles-container">
+                            @{var index = 0;}
+                            @foreach (var detalle in Model.Gasto.Detalles)
+                            {
+                                <div class="row mb-3 detalle-row">
+                                    <input type="hidden" name="Gasto.Detalles[@index].Id" value="@detalle.Id" />
+                                    <input type="hidden" name="Gasto.Detalles[@index].GastoId" value="@detalle.GastoId" />
+
+                                    <div class="col-md-4">
+                                        <select name="Gasto.Detalles[@index].TipoGastoId" class="form-select" asp-items="@(new SelectList(Model.TiposGastoLista, "Id", "Nombre", detalle.TipoGastoId))">
+                                            <option value="">Seleccione un tipo de gasto</option>
+                                        </select>
+                                        <span asp-validation-for="@detalle.TipoGastoId" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input name="Gasto.Detalles[@index].Descripcion" class="form-control" placeholder="Descripción" value="@detalle.Descripcion" />
+                                        <span asp-validation-for="@detalle.Descripcion" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <input name="Gasto.Detalles[@index].Monto" class="form-control" placeholder="Monto" value="@detalle.Monto" type="number" step="0.01" />
+                                        <span asp-validation-for="@detalle.Monto" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarDetalle(this)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                index++;
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function agregarDetalle() {
+            const container = document.getElementById('detalles-container');
+            const index = container.children.length;
+            const template = `
+                <div class="row mb-3 detalle-row">
+                    <input type="hidden" name="Gasto.Detalles[${index}].Id" value="0" />
+                    <input type="hidden" name="Gasto.Detalles[${index}].GastoId" value="${document.querySelector('input[name="Gasto.Id"]').value}" />
+
+                    <div class="col-md-4">
+                        <select name="Gasto.Detalles[${index}].TipoGastoId" class="form-select">
+                            <option value="">Seleccione un tipo de gasto</option>
+                            @foreach (var tipo in Model.TiposGastoLista)
+                            {
+                                <option value="@tipo.Id">@tipo.Nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <input name="Gasto.Detalles[${index}].Descripcion" class="form-control" placeholder="Descripción" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <input name="Gasto.Detalles[${index}].Monto" class="form-control" placeholder="Monto" type="number" step="0.01" />
+                    </div>
+
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarDetalle(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>`;
+
+            container.insertAdjacentHTML('beforeend', template);
+        }
+
+        function eliminarDetalle(button) {
+            button.closest('.detalle-row').remove();
+            reindexDetalles();
+        }
+
+        function reindexDetalles() {
+            const container = document.getElementById('detalles-container');
+            const rows = container.getElementsByClassName('detalle-row');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const inputs = rows[i].getElementsByTagName('input');
+                const selects = rows[i].getElementsByTagName('select');
+                
+                for (let input of inputs) {
+                    input.name = input.name.replace(/\[\d+\]/, `[${i}]`);
+                }
+                
+                for (let select of selects) {
+                    select.name = select.name.replace(/\[\d+\]/, `[${i}]`);
+                }
+            }
+        }
+    </script>
+} 

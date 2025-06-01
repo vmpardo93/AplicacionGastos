@@ -1,0 +1,151 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MovimientoGastos
+build_property.RootNamespace = MovimientoGastos
+build_property.ProjectDir = C:\Users\Victor\source\repos\MovimientoGastos\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Victor\source\repos\MovimientoGastos
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Consultas/Graficos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXEdyYWZpY29zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Consultas/Movimientos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXE1vdmltaWVudG9zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimientos/TiposGasto/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b3NcVGlwb3NHYXN0b1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimientos/TiposGasto/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b3NcVGlwb3NHYXN0b1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimientos/TiposGasto/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b3NcVGlwb3NHYXN0b1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimientos/TiposGasto/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b3NcVGlwb3NHYXN0b1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimientos/TiposGasto/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b3NcVGlwb3NHYXN0b1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimiento/Presupuestos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b1xQcmVzdXB1ZXN0b3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimiento/Presupuestos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b1xQcmVzdXB1ZXN0b3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimiento/Presupuestos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b1xQcmVzdXB1ZXN0b3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Mantenimiento/Presupuestos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudGVuaW1pZW50b1xQcmVzdXB1ZXN0b3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Depositos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcRGVwb3NpdG9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Depositos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcRGVwb3NpdG9zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Depositos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcRGVwb3NpdG9zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Depositos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcRGVwb3NpdG9zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Depositos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcRGVwb3NpdG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Gastos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcR2FzdG9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Gastos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcR2FzdG9zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Gastos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcR2FzdG9zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Gastos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcR2FzdG9zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Movimientos/Gastos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aW1pZW50b3NcR2FzdG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor/source/repos/MovimientoGastos/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-mug61b6me6
