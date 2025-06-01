@@ -5,10 +5,32 @@ using MovimientoGastos.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar el puerto para Heroku
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+    Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+// Configurar para PostgreSQL en Heroku
+if (Environment.GetEnvironmentVariable("DATABASE_URL") != null)
+{
+    // Heroku PostgreSQL
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(GetHerokuConnectionString()));
+}
+else
+{
+    // SQL Server local
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
@@ -34,14 +56,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Configurar las rutas de autenticación
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Index"; // Página de login
-    options.LogoutPath = "/Identity/Account/Logout"; // Página de logout
-    options.AccessDeniedPath = "/Identity/Account/AccessDenied"; // Página de acceso denegado
-});
-
 builder.Services.AddRazorPages();
 
 // Registrar el servicio de presupuesto
@@ -49,12 +63,24 @@ builder.Services.AddScoped<IPresupuestoService, PresupuestoService>();
 
 var app = builder.Build();
 
-// Agregar el seeding de datos
-using (var scope = app.Services.CreateScope())
+// Aplicar migraciones automáticamente en Heroku
+if (!app.Environment.IsDevelopment())
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    DbInitializer.Initialize(context);
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+    }
+}
+else
+{
+    // Seeding solo en desarrollo
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        DbInitializer.Initialize(context);
+    }
 }
 
 // Configure the HTTP request pipeline.
@@ -65,7 +91,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -80,3 +105,12 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+// Función para convertir la URL de Heroku PostgreSQL
+static string GetHerokuConnectionString()
+{
+    var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+    var databaseUri = new Uri(connectionUrl);
+    var userInfo = databaseUri.UserInfo.Split(':');
+    return $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
