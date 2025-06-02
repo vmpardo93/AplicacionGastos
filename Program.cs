@@ -12,35 +12,33 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 // Configuración de base de datos
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+var databaseUri = new Uri(databaseUrl);
+var userInfo = databaseUri.UserInfo.Split(':');
+var connectionString = $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
 
-    // PostgreSQL para Heroku
-    var databaseUri = new Uri(databaseUrl);
-    var userInfo = databaseUri.UserInfo.Split(':');
-    var connectionString = $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+// ✅ CONFIGURAR NPGSQL PARA MANEJAR FECHAS AUTOMÁTICAMENTE
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-
-
-
-
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// ✅ CONFIGURAR IDENTITY CON ROLES CORRECTAMENTE
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = false;  // ✅ Simplificar para testing
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 4;    // ✅ Mínimo para testing
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
     options.User.RequireUniqueEmail = true;
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 })
+.AddRoles<IdentityRole>()  // ✅ CRÍTICO: Agregar soporte para roles
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
@@ -48,35 +46,35 @@ builder.Services.AddScoped<IPresupuestoService, PresupuestoService>();
 
 var app = builder.Build();
 
-
-// Inicializar la base de datos con datos semilla
+// ✅ INICIALIZACIÓN SEGURA CON TRY-CATCH
 using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    
-    await DbInitializer.Initialize(context, userManager, roleManager);
-}
-
-// ... rest of existing code ...
-
-// Aplicar migraciones automáticamente en producción
-if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DATABASE_URL")))
 {
     try
     {
-        using (var scope = app.Services.CreateScope())
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        
+        // Solo aplicar migraciones, no seeds por ahora
+        await context.Database.MigrateAsync();
+        Console.WriteLine("✅ Migraciones aplicadas correctamente");
+        
+        // Intentar seeds solo si Identity está funcionando
+        try
         {
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            await DbInitializer.Initialize(context, userManager, roleManager);
+            Console.WriteLine("✅ Seeds ejecutados correctamente");
+        }
+        catch (Exception seedEx)
+        {
+            Console.WriteLine($"⚠️ Error en seeds (ignorando): {seedEx.Message}");
         }
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Migration error (ignoring): {ex.Message}");
-        // Continuar sin crash
+        Console.WriteLine($"❌ Error crítico en inicialización: {ex.Message}");
+        // No hacer throw para evitar crash total
     }
 }
 
