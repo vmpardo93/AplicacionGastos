@@ -48,6 +48,23 @@ builder.Services.AddScoped<IPresupuestoService, PresupuestoService>();
 
 var app = builder.Build();
 
+// ... existing code ...
+
+var app = builder.Build();
+
+// Inicializar la base de datos con datos semilla
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    
+    await DbInitializer.Initialize(context, userManager, roleManager);
+}
+
+// ... rest of existing code ...
+
 // Aplicar migraciones automáticamente en producción
 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DATABASE_URL")))
 {
