@@ -15,7 +15,7 @@ CREATE TABLE [AspNetRoles] (
     [Id] varchar(450) NOT NULL,
     [Name] varchar(256) NULL,
     [NormalizedName] varchar(256) NULL,
-    [ConcurrencyStamp] varchar(max) NULL,
+    [ConcurrencyStamp] text NULL,
     CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
 );
 GO
@@ -27,10 +27,10 @@ CREATE TABLE [AspNetUsers] (
     [Email] varchar(256) NULL,
     [NormalizedEmail] varchar(256) NULL,
     [EmailConfirmed] bit NOT NULL,
-    [PasswordHash] varchar(max) NULL,
-    [SecurityStamp] varchar(max) NULL,
-    [ConcurrencyStamp] varchar(max) NULL,
-    [PhoneNumber] varchar(max) NULL,
+    [PasswordHash] text NULL,
+    [SecurityStamp] text NULL,
+    [ConcurrencyStamp] text NULL,
+    [PhoneNumber] text NULL,
     [PhoneNumberConfirmed] bit NOT NULL,
     [TwoFactorEnabled] bit NOT NULL,
     [LockoutEnd] datetimeoffset NULL,
@@ -43,8 +43,8 @@ GO
 CREATE TABLE [AspNetRoleClaims] (
     [Id] int NOT NULL IDENTITY,
     [RoleId] varchar(450) NOT NULL,
-    [ClaimType] varchar(max) NULL,
-    [ClaimValue] varchar(max) NULL,
+    [ClaimType] text NULL,
+    [ClaimValue] text NULL,
     CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
 );
@@ -53,8 +53,8 @@ GO
 CREATE TABLE [AspNetUserClaims] (
     [Id] int NOT NULL IDENTITY,
     [UserId] varchar(450) NOT NULL,
-    [ClaimType] varchar(max) NULL,
-    [ClaimValue] varchar(max) NULL,
+    [ClaimType] text NULL,
+    [ClaimValue] text NULL,
     CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
 );
@@ -63,7 +63,7 @@ GO
 CREATE TABLE [AspNetUserLogins] (
     [LoginProvider] varchar(128) NOT NULL,
     [ProviderKey] varchar(128) NOT NULL,
-    [ProviderDisplayName] varchar(max) NULL,
+    [ProviderDisplayName] text NULL,
     [UserId] varchar(450) NOT NULL,
     CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
     CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
@@ -83,7 +83,7 @@ CREATE TABLE [AspNetUserTokens] (
     [UserId] varchar(450) NOT NULL,
     [LoginProvider] varchar(128) NOT NULL,
     [Name] varchar(128) NOT NULL,
-    [Value] varchar(max) NULL,
+    [Value] text NULL,
     CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
     CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
 );
