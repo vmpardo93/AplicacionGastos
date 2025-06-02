@@ -13,8 +13,6 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 // Configuración de base de datos
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-if (!string.IsNullOrEmpty(databaseUrl))
-{
     // PostgreSQL para Heroku
     var databaseUri = new Uri(databaseUrl);
     var userInfo = databaseUri.UserInfo.Split(':');
@@ -23,16 +21,6 @@ if (!string.IsNullOrEmpty(databaseUrl))
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseNpgsql(connectionString)
                .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
-}
-else
-{
-    // SQL Server para desarrollo local
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
-        throw new InvalidOperationException("Connection string not found.");
-    
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
-}
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
