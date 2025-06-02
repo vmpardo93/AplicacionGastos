@@ -33,7 +33,7 @@ CREATE TABLE [AspNetUsers] (
     [PhoneNumber] text NULL,
     [PhoneNumberConfirmed] bit NOT NULL,
     [TwoFactorEnabled] bit NOT NULL,
-    [LockoutEnd] datetime NULL,
+    [LockoutEnd] DateTime NULL,
     [LockoutEnabled] bit NOT NULL,
     [AccessFailedCount] int NOT NULL,
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id])
@@ -139,7 +139,7 @@ GO
 
 CREATE TABLE [Depositos] (
     [Id] int NOT NULL IDENTITY,
-    [Fecha] datetime2 NOT NULL,
+    [Fecha] DateTime2 NOT NULL,
     [FondoId] int NOT NULL,
     [Monto] decimal(18,2) NOT NULL,
     CONSTRAINT [PK_Depositos] PRIMARY KEY ([Id]),
@@ -149,7 +149,7 @@ GO
 
 CREATE TABLE [Gastos] (
     [Id] int NOT NULL IDENTITY,
-    [Fecha] datetime2 NOT NULL,
+    [Fecha] DateTime2 NOT NULL,
     [FondoId] int NOT NULL,
     [Observaciones] varchar(500) NOT NULL,
     [Comercio] varchar(200) NOT NULL,

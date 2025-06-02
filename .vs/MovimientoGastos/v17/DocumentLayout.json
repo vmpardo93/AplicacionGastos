@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Victor\\source\\repos\\MovimientoGastos\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{030B2B0C-BC89-41CC-8DAF-4FDE0BB8567F}|MovimientoGastos.csproj|c:\\users\\victor\\source\\repos\\movimientogastos\\data\\migrations\\00000000000000_createidentityschema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{030B2B0C-BC89-41CC-8DAF-4FDE0BB8567F}|MovimientoGastos.csproj|solutionrelative:data\\migrations\\00000000000000_createidentityschema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{030B2B0C-BC89-41CC-8DAF-4FDE0BB8567F}|MovimientoGastos.csproj|c:\\users\\victor\\source\\repos\\movimientogastos\\pages\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{030B2B0C-BC89-41CC-8DAF-4FDE0BB8567F}|MovimientoGastos.csproj|solutionrelative:pages\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
@@ -19,12 +23,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "00000000000000_CreateIdentitySchema.cs",
+              "DocumentMoniker": "C:\\Users\\Victor\\source\\repos\\MovimientoGastos\\Data\\Migrations\\00000000000000_CreateIdentitySchema.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\00000000000000_CreateIdentitySchema.cs",
+              "ToolTip": "C:\\Users\\Victor\\source\\repos\\MovimientoGastos\\Data\\Migrations\\00000000000000_CreateIdentitySchema.cs",
+              "RelativeToolTip": "Data\\Migrations\\00000000000000_CreateIdentitySchema.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAQwCgAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T00:29:07.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Victor\\source\\repos\\MovimientoGastos\\Pages\\Dashboard\\Index.cshtml",
               "RelativeDocumentMoniker": "Pages\\Dashboard\\Index.cshtml",
               "ToolTip": "C:\\Users\\Victor\\source\\repos\\MovimientoGastos\\Pages\\Dashboard\\Index.cshtml",
               "RelativeToolTip": "Pages\\Dashboard\\Index.cshtml",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAuwBUAAAAnAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAYwBUAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-06-01T18:03:12.288Z",
               "EditorCaption": ""

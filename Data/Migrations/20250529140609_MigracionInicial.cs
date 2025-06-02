@@ -46,7 +46,7 @@ namespace MovimientoGastos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "DateTime2", nullable: false),
                     FondoId = table.Column<int>(type: "int", nullable: false),
                     Monto = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
@@ -67,7 +67,7 @@ namespace MovimientoGastos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "DateTime2", nullable: false),
                     FondoId = table.Column<int>(type: "int", nullable: false),
                     Observaciones = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     Comercio = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),

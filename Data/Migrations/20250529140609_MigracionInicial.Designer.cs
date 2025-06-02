@@ -99,8 +99,8 @@ namespace MovimientoGastos.Data.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<datetime?>("LockoutEnd")
-                        .HasColumnType("datetime");
+                    b.Property<DateTime?>("LockoutEnd")
+                        .HasColumnType("DateTime");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -236,7 +236,7 @@ namespace MovimientoGastos.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DateTime2");
 
                     b.Property<int>("FondoId")
                         .HasColumnType("int");
@@ -288,7 +288,7 @@ namespace MovimientoGastos.Data.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DateTime2");
 
                     b.Property<int>("FondoId")
                         .HasColumnType("int");

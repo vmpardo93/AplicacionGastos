@@ -94,8 +94,8 @@ namespace MovimientoGastos.Data.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<datetime?>("LockoutEnd")
-                        .HasColumnType("datetime");
+                    b.Property<DateTime?>("LockoutEnd")
+                        .HasColumnType("DateTime");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("varchar(256)")
