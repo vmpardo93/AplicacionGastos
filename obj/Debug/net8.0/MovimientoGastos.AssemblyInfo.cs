@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MovimientoGastos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ada76a6eeb253c8c5c94d99962a5bd1d277de668")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5f01740218eba8752fe1bbb2d988914f255ee93")]
 [assembly: System.Reflection.AssemblyProductAttribute("MovimientoGastos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MovimientoGastos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

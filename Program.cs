@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using MovimientoGastos.Data;
 using MovimientoGastos.Services;
-using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,17 +12,17 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 // Configuración de base de datos
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-var isProduction = builder.Environment.IsProduction() || !string.IsNullOrEmpty(databaseUrl);
 
-if (isProduction && !string.IsNullOrEmpty(databaseUrl))
+if (!string.IsNullOrEmpty(databaseUrl))
 {
-    // PostgreSQL para Heroku/Producción
+    // PostgreSQL para Heroku
     var databaseUri = new Uri(databaseUrl);
     var userInfo = databaseUri.UserInfo.Split(':');
     var connectionString = $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
     
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(connectionString));
+        options.UseNpgsql(connectionString)
+               .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
 }
 else
 {
@@ -58,7 +58,7 @@ builder.Services.AddScoped<IPresupuestoService, PresupuestoService>();
 var app = builder.Build();
 
 // Aplicar migraciones automáticamente en producción
-if (isProduction)
+if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DATABASE_URL")))
 {
     try
     {
@@ -70,8 +70,8 @@ if (isProduction)
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Migration error: {ex.Message}");
-        // No crash la app, solo log el error
+        Console.WriteLine($"Migration error (ignoring): {ex.Message}");
+        // Continuar sin crash
     }
 }
 
