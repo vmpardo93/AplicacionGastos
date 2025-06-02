@@ -32,10 +32,9 @@ namespace MovimientoGastos.Models
         [Display(Name = "Número de Documento")]
         public string NumeroDoc { get; set; }
 
-        //[Required(ErrorMessage = "El fondo es requerido")]
         [Display(Name = "Fondo")]
-        [Column("FondoId")]
         public int FondoMonetarioId { get; set; }
+
 
         //[Required(ErrorMessage = "El usuario es requerido")]
         [StringLength(450)]
@@ -54,3 +53,4 @@ namespace MovimientoGastos.Models
         public decimal Total => Detalles?.Sum(d => d.Monto) ?? 0;
     }
 } 
+

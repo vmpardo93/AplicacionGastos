@@ -48,9 +48,6 @@ builder.Services.AddScoped<IPresupuestoService, PresupuestoService>();
 
 var app = builder.Build();
 
-// ... existing code ...
-
-var app = builder.Build();
 
 // Inicializar la base de datos con datos semilla
 using (var scope = app.Services.CreateScope())

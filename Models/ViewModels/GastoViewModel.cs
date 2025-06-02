@@ -65,7 +65,7 @@ namespace MovimientoGastos.Models.ViewModels
             return new Gasto
             {
                 Id = this.Id,
-                Fecha = this.Fecha,
+                Fecha = DateTime.SpecifyKind(this.Fecha, DateTimeKind.Utc),
                 Comercio = this.Comercio,
                 TipoDoc = this.TipoDoc,
                 NumeroDoc = this.NumeroDoc,
