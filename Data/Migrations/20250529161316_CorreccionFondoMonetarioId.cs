@@ -35,7 +35,7 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "Descripcion",
                 table: "GastosDetalle",
-                type: "nvarchar(200)",
+                type: "varchar(200)",
                 maxLength: 200,
                 nullable: true);
 
@@ -48,11 +48,11 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Observaciones",
                 table: "Gastos",
-                type: "nvarchar(500)",
+                type: "varchar(500)",
                 maxLength: 500,
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(500)",
+                oldType: "varchar(500)",
                 oldMaxLength: 500);
 
             migrationBuilder.AlterColumn<int>(
@@ -66,11 +66,11 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Comercio",
                 table: "Gastos",
-                type: "nvarchar(100)",
+                type: "varchar(100)",
                 maxLength: 100,
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(200)",
+                oldType: "varchar(200)",
                 oldMaxLength: 200);
 
             migrationBuilder.AddColumn<int>(
@@ -89,7 +89,7 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "NumeroDoc",
                 table: "Gastos",
-                type: "nvarchar(50)",
+                type: "varchar(50)",
                 maxLength: 50,
                 nullable: false,
                 defaultValue: "");
@@ -100,9 +100,9 @@ namespace MovimientoGastos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     SaldoInicial = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Descripcion = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,12 +245,12 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Observaciones",
                 table: "Gastos",
-                type: "nvarchar(500)",
+                type: "varchar(500)",
                 maxLength: 500,
                 nullable: false,
                 defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(500)",
+                oldType: "varchar(500)",
                 oldMaxLength: 500,
                 oldNullable: true);
 
@@ -267,11 +267,11 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Comercio",
                 table: "Gastos",
-                type: "nvarchar(200)",
+                type: "varchar(200)",
                 maxLength: 200,
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(100)",
+                oldType: "varchar(100)",
                 oldMaxLength: 100);
 
             migrationBuilder.AddForeignKey(

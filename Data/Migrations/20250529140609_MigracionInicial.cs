@@ -17,8 +17,8 @@ namespace MovimientoGastos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Tipo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Nombre = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Tipo = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,9 +31,9 @@ namespace MovimientoGastos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                    Codigo = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Descripcion = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,9 +69,9 @@ namespace MovimientoGastos.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FondoId = table.Column<int>(type: "int", nullable: false),
-                    Observaciones = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Comercio = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    TipoDoc = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Observaciones = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
+                    Comercio = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
+                    TipoDoc = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,7 +90,7 @@ namespace MovimientoGastos.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UsuarioId = table.Column<string>(type: "varchar(450)", nullable: false),
                     TipoGastoId = table.Column<int>(type: "int", nullable: false),
                     Mes = table.Column<int>(type: "int", nullable: false),
                     Monto = table.Column<decimal>(type: "decimal(18,2)", nullable: false)

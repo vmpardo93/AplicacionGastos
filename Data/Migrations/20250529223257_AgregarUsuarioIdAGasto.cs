@@ -13,7 +13,7 @@ namespace MovimientoGastos.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "UsuarioId",
                 table: "Gastos",
-                type: "nvarchar(450)",
+                type: "varchar(450)",
                 maxLength: 450,
                 nullable: false,
                 defaultValue: "");
